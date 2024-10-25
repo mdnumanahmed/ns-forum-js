@@ -206,12 +206,12 @@
     <section>
       <div class="container mx-auto px-16 pb-12">
         <div
-          class="hero-section bg-[#12132D] p-24 bg-[url('images/bgbanner.png')] bg-no-repeat bg-cover rounded-2xl"
+          class="hero-section bg-[#12132D] p-3 lg:p-24 bg-[url('images/bgbanner.png')] bg-no-repeat bg-cover rounded-2xl"
         >
-          <div class="flex justify-center gap-10">
-            <div class="space-y-6 pr-20 max-w-2xl">
+          <div class="flex flex-col lg:flex-row justify-center gap-10">
+            <div class="space-y-6 pr-0 lg:pr-20 max-w-2xl">
               <h1
-                class="mulish text-7xl text-white font-black line leading-[80px]"
+                class="mulish text-2xl lg:text-7xl text-white font-black line leading-[80px]"
               >
                 Welcome to the
                 <span
@@ -236,7 +236,7 @@
                 </button>
               </div>
             </div>
-            <div class="bg-white p-8 rounded-2xl">
+            <div class="bg-white p2 lg:p-8 rounded-2xl">
               <div class="overflow-x-auto">
                 <table class="table">
                   <tbody class="text-2xl font-medium">
@@ -285,9 +285,11 @@
           <!-- Display Cards -->
           <div class="flex-1">
             <!-- Single Card -->
-            <div class="single-card flex gap-2 p-10 rounded-2xl bg-[#797DFC1A]">
+            <div
+              class="single-card flex flex-col lg:flex-row gap-2 p-3 lg:p-10 rounded-2xl bg-[#797DFC1A]"
+            >
               <div class="avatar online">
-                <div class="w-24 rounded-full">
+                <div class="w-full lg:w-24 rounded-full">
                   <img
                     src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   />
@@ -446,8 +448,10 @@
     <!-- Call to Action Start -->
     <section>
       <div class="container mx-auto px-16 py-12">
-        <div class="bg-[#12132D] rounded-2xl flex">
-          <div class="text-white p-24 space-y-4 max-w-4xl">
+        <div class="bg-[#12132D] rounded-2xl flex flex-col lg:flex-row">
+          <div
+            class="text-white p-4 lg:p-24 space-y-4 max-w-4xl order-2 mt-4 md:mt-0"
+          >
             <h2 class="mulish text-5xl font-bold">Join Our Forum</h2>
             <p>
               Share your favorite opinion and win and wp forum coffee mug! Yes,
@@ -455,12 +459,12 @@
               app.
             </p>
             <button
-              class="btn btn-primary rounded-full text-xl font-bold px-10"
+              class="btn btn-primary rounded-full text-xl font-bold px-3 lg:px-10"
             >
               Registered Now
             </button>
           </div>
-          <div class="self-end">
+          <div class="self-end order-1">
             <img src="images/joinforum.png" alt="" />
           </div>
         </div>
