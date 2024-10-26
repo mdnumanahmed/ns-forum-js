@@ -129,6 +129,7 @@ const showAllPosts = (posts) => {
     </div>
       `;
   });
+  toggleSpinner(false);
 };
 
 const showMarkAsRead = async (id) => {
@@ -240,12 +241,16 @@ const displayLatestPosts = (posts) => {
 
 // Function to search by category using onclick in search button
 const searchByCategory = async () => {
-  const categoryName = document.getElementById("search-input-text").value;
-  const res = await fetch(
-    `https://openapi.programming-hero.com/api/retro-forum/posts?category=${categoryName}`
-  );
-  const data = await res.json();
-  showAllPosts(data.posts);
+  toggleSpinner(true); // loader show 2 seconds
+  // After 2 seconds will load and display data using setTimeout()
+  setTimeout(async () => {
+    const categoryName = document.getElementById("search-input-text").value;
+    const res = await fetch(
+      `https://openapi.programming-hero.com/api/retro-forum/posts?category=${categoryName}`
+    );
+    const data = await res.json();
+    showAllPosts(data.posts);
+  }, 2000);
 };
 
 // addEventListener() to search by category using by Enter key
@@ -254,14 +259,26 @@ document
   .addEventListener("keypress", async function (e) {
     const enterKey = e.key;
     if (enterKey === "Enter") {
-      const categoryName = document.getElementById("search-input-text").value;
-      const res = await fetch(
-        `https://openapi.programming-hero.com/api/retro-forum/posts?category=${categoryName}`
-      );
-      const data = await res.json();
-      showAllPosts(data.posts);
+      toggleSpinner(true); // loader show 2 seconds
+      // After 2 seconds will load and display data using setTimeout()
+      setTimeout(async () => {
+        const categoryName = document.getElementById("search-input-text").value;
+        const res = await fetch(
+          `https://openapi.programming-hero.com/api/retro-forum/posts?category=${categoryName}`
+        );
+        const data = await res.json();
+        showAllPosts(data.posts);
+      }, 2000);
     }
   });
 
+const toggleSpinner = (status) => {
+  const loader = document.getElementById("loading-spinner");
+  if (status) {
+    loader.classList.remove("hidden");
+  } else {
+    loader.classList.add("hidden");
+  }
+};
 loadPosts();
 loadLatestPosts();
