@@ -9,6 +9,7 @@ const loadPosts = async () => {
 
 const showAllPosts = (posts) => {
   const postsContainer = document.getElementById("posts-container");
+  postsContainer.innerHTML = "";
   posts.forEach((post) => {
     const {
       category,
@@ -178,7 +179,6 @@ const loadLatestPosts = async () => {
 
 const displayLatestPosts = (posts) => {
   const postsContainer = document.getElementById("latest-post-container");
-  console.log(posts);
   posts.forEach((post) => {
     const { cover_image, title, profile_image, description, author } = post;
     postsContainer.innerHTML += `
@@ -237,6 +237,31 @@ const displayLatestPosts = (posts) => {
         `;
   });
 };
+
+// Function to search by category using onclick in search button
+const searchByCategory = async () => {
+  const categoryName = document.getElementById("search-input-text").value;
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/retro-forum/posts?category=${categoryName}`
+  );
+  const data = await res.json();
+  showAllPosts(data.posts);
+};
+
+// addEventListener() to search by category using by Enter key
+document
+  .getElementById("search-input-text")
+  .addEventListener("keypress", async function (e) {
+    const enterKey = e.key;
+    if (enterKey === "Enter") {
+      const categoryName = document.getElementById("search-input-text").value;
+      const res = await fetch(
+        `https://openapi.programming-hero.com/api/retro-forum/posts?category=${categoryName}`
+      );
+      const data = await res.json();
+      showAllPosts(data.posts);
+    }
+  });
 
 loadPosts();
 loadLatestPosts();
