@@ -1,5 +1,8 @@
 # NS-Forum
 
+# To visit live site: click below link
+[NS Forum](https://mdnumanahmed.github.io/ns-forum-js/)
+
 ![image info](./images/ns-forum.png)
 
 # API
