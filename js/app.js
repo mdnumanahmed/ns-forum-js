@@ -10,7 +10,6 @@ const loadPosts = async () => {
 const showAllPosts = (posts) => {
   const postsContainer = document.getElementById("posts-container");
   posts.forEach((post) => {
-    console.log(post);
     const {
       category,
       image,
@@ -26,20 +25,20 @@ const showAllPosts = (posts) => {
       <div
         class="single-card flex flex-col lg:flex-row gap-2 p-3 lg:p-10 rounded-2xl bg-[#797DFC1A]"
     >
-        <div class="avatar online">
-        <div class="w-full lg:w-24 rounded-full">
+        <div class="avatar ${isActive ? "online" : "offline"}">
+        <div class="w-full lg:w-36 rounded-full">
             <img
             src="${image}"
             />
         </div>
         </div>
-        <div class="p-4 space-y-3">
+        <div class="p-4 space-y-3 grow">
         <div class="flex gap-4">
             <h4 class="mulish text-sm text-[#12132DCC] font-bold">
             # ${category}
             </h4>
             <h4 class="mulish text-sm text-[#12132DCC] font-bold">
-            Author: ${author}
+            Author: ${author?.name}
             </h4>
         </div>
         <h3 class="mulish text-xl font-bold text-[#12132D]">
@@ -109,7 +108,7 @@ const showAllPosts = (posts) => {
             <div
             class="bg-[#10B981] rounded-full w-8 h-8 p-1 text-center"
             >
-            <button>
+            <button id="show-marked" onclick="showMarkAsRead('${post.id}')">
                 <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -129,6 +128,43 @@ const showAllPosts = (posts) => {
     </div>
       `;
   });
+};
+
+const showMarkAsRead = async (id) => {
+  const markReadCount = document.getElementById("mark-read-count");
+  markReadCount.innerText = Number(markReadCount.innerText) + 1;
+  const displayReadContent = document.getElementById("display-read-content");
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/retro-forum/post/${id}`
+  );
+  const data = await res.json();
+  const { title, view_count } = data;
+  console.log(data);
+  displayReadContent.innerHTML += `
+    <div class="flex justify-between p-4 rounded-xl bg-white">
+        <h3 class="mulish font-semibold text-base">
+            ${title ? title : "Title not found!"}
+        </h3>
+        <p class="flex items-center gap-4">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-eye"
+            viewBox="0 0 16 16"
+            >
+            <path
+                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"
+            />
+            <path
+                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"
+            />
+            </svg>
+            <span> ${view_count ? view_count : 0} </span>
+        </p>
+        </div>
+    `;
 };
 
 loadPosts();
